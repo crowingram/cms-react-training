@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styles from '../../../styles/Comic.module.css'
+import styles from '@/styles/Comic.module.css'
 
 const { comics } = require('./static_data.json') 
 

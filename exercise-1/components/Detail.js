@@ -1,6 +1,6 @@
 import moment from 'moment';
 import Link from 'next/link';
-import styles from '../styles/Detail.module.css'
+import styles from '@/styles/Detail.module.css'
 
 export function Detail({ comic }) {
 

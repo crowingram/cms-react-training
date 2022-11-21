@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import { Comic } from '../components/Comic'
-import styles from '../styles/Home.module.css'
+import { Comic } from '@/components/Comic'
+import styles from '@/styles/Home.module.css'
 
 export default function Home( comics ) {
 	return (
