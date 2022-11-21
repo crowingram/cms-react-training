@@ -1,0 +1,8 @@
+.detail p {
+	font-size: 1rem;
+	line-height: 1.5;
+	margin: 0;
+}
+.detail a:hover {
+	text-decoration: underline;
+}
