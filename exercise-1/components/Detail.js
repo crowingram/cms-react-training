@@ -9,7 +9,8 @@ export function Detail({ comic }) {
 			{ comic.issueNumber > 0 && <p><b>Issue:</b> {comic.issueNumber}</p> }
 			<p><b>Published:</b> { moment(comic.publishDate).format('LL') }</p>
 			<p><b>Creators:</b></p>
-			{ comic.creators.map((creator, index) => {
+			{ comic.creators.map((creator) => {
+				let index = Math.random()
 				return <p key={index}><Link href={creator.resourceURI}>{creator.name}</Link>, {creator.role}</p>
 			})}
 			
