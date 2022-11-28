@@ -18,7 +18,7 @@ export default function Home( comics ) {
 
 				<div className={styles.grid}>
 					{comics.comics.map((comic) => (
-						<Comic key={comic} comic={comic} />
+						<Comic key={comic.id} comic={comic} />
 					))}
 				</div>
 			</main>
