@@ -15,9 +15,6 @@ export const Comic = ({ comic }) => {
 		<div className={styles.card}>
 			<div className={styles.thumbnail}>
 				{comic.thumbnail 
-					&& comic.thumbnail.path !== "image_not_available " 
-					&& console.log(comic.thumbnail.path + "." + comic.thumbnail.extension)}
-				{comic.thumbnail 
 					&& <Image src={thumbnailUrl} width={150} height={231} alt={comic.title} />}
 				<Button key={comic.id} />
 			</div>

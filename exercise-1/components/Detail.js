@@ -9,8 +9,10 @@ export function Detail({ comic }) {
 	return (
 		<div className={styles.detail}>
 			{ comic.issueNumber > 0 && <p><b>Issue:</b> {comic.issueNumber}</p> }
-			<p><b>Published:</b> { moment(comic.publishDate).format('LL') }</p>
-			{ comic.creators && <p><b>Creators:</b></p>}
+			{ <p><b>Published:</b> { moment(comic.publishDate).format('LL') }</p>}
+			{ comic.creators && comic.creators.available === 1 && <p><b>Creator:</b></p> }
+			{ comic.creators && comic.creators.available > 1 && <p><b>Creators:</b></p> }
+			
 			{ comic.creators && comic.creators.items.map((creator) => {
 				let index = Math.random()
 				creatorUrl = creator.resourceURI + "?apikey=" + API_PUBLIC
