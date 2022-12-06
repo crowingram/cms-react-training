@@ -23,8 +23,6 @@ export default function Home( comics ) {
 				</h1>
 
 				<div className={styles.grid}>
-					<Comic key={comics.id} comic={comics} />
-					{/*{console.log("$$$$$$$" + comics.comics.data.results.map(comic => comic.id) + "$$$$$$$")}*/}
 					{comics.comics.data.results.map((comic) => (
 						<Comic key={comic.id} comic={comic} />
 					))}
