@@ -1,13 +1,14 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { Comic } from '@/components/Comic'
+import useMarvelApi from '../hooks/useMarvelApi'
 import styles from '@/styles/Home.module.css'
-import md5 from 'blueimp-md5'
-const API_PRIVATE = process.env.PRIVATE_API_KEY
-const API_PUBLIC = process.env.PUBLIC_API_KEY
-const API_URL = process.env.API_URL
 
-export default function Home( comics ) {
+export default function Home() {
+	const comics = useMarvelApi()
+	const comicSubset = comics.data?.results
+	console.log(comicSubset)
+	
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -23,9 +24,10 @@ export default function Home( comics ) {
 				</h1>
 
 				<div className={styles.grid}>
-					{comics.comics.data.results.map((comic) => (
-						<Comic key={comic.id} comic={comic} />
-					))}
+					{/*{comicSubset?.map(({id, title}) => {
+						<Comic key={id} comic={title} />
+					})}*/}
+					
 				</div>
 			</main>
 
@@ -34,19 +36,4 @@ export default function Home( comics ) {
 			</footer>
 		</div>
 	)
-}
-
-export async function getStaticProps() {
-	const timestamp = new Date().toString()
-	const unencoded_hash = timestamp + API_PRIVATE + API_PUBLIC
-	const auth = md5(unencoded_hash)
-	const fetch_url = API_URL + '/v1/public/comics?ts=' + timestamp + '&apikey=' + API_PUBLIC + '&hash=' + auth
-	const res = await fetch(fetch_url)
-	const comics = await res.json()
-	//console.log(comics.data.results);
-
-	return {
-		props: { comics },
-		revalidate: 1,
-	}
 }
