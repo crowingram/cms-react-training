@@ -1,14 +1,14 @@
-import Image from 'next/image'
-import { Button } from './Button'
-import { Detail } from './Detail'
-import styles from '@/styles/Comic.module.css'
+import Image from 'next/image';
+import { Button } from './Button';
+import { Detail } from './Detail';
+import styles from '@/styles/Comic.module.css';
 
 
 export const Comic = ({ comic }) => {
-	let thumbnailUrl = ''
+	let thumbnailUrl = '';
 	
 	if(comic.thumbnail) {
-		thumbnailUrl=comic.thumbnail.path + "." + comic.thumbnail.extension
+		thumbnailUrl=comic.thumbnail.path + "." + comic.thumbnail.extension;
 	}
 	
 	return (
@@ -21,5 +21,5 @@ export const Comic = ({ comic }) => {
 			<h2 key={comic.id}>{comic.title}</h2>
 			<Detail comic={comic} />
 		</div>
-	)
+	);
 }

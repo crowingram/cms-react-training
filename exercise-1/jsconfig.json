@@ -1,9 +1,22 @@
 {
-	"compilerOptions": {
-		"baseUrl": ".",
-		"paths": {
-			"@/components/*": ["components/*"],
-			"@/styles/*" : ["styles/*"]
-		}
-	}
+  "compilerOptions": {
+	"sourceMap": true,
+	"strictNullChecks": true,
+	"module":"ES6",
+	"jsx": "react",
+	"target": "es2016",
+	"allowJs": true,
+    "preserveConstEnums": true,
+	"baseUrl": ".",
+	"paths": {
+		"@/components/*": ["components/*"],
+		"@/styles/*" : ["styles/*"]
+	},
+  },
+  "include": [
+	"pages/**/*",
+	"components/**/*",
+	"hooks/**/*"
+],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

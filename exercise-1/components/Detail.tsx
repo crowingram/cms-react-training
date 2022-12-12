@@ -1,10 +1,10 @@
 import moment from 'moment';
 import Link from 'next/link';
-import styles from '@/styles/Detail.module.css'
-const API_PUBLIC = process.env.PUBLIC_API_KEY
+import styles from '@/styles/Detail.module.css';
+const API_PUBLIC = process.env.PUBLIC_API_KEY;
 
 export function Detail({ comic }) {
-	let creatorUrl = ''
+	let creatorUrl = '';
 
 	return (
 		<div className={styles.detail}>
@@ -15,9 +15,9 @@ export function Detail({ comic }) {
 			{ comic.creators && comic.creators.available === 1 && <p><b>Creator:</b></p> }
 			{ comic.creators && comic.creators.available > 1 && <p><b>Creators:</b></p> }
 			{ comic.creators && comic.creators.items.map((creator) => {
-				let index = Math.random()
-				creatorUrl = creator.resourceURI + "?apikey=" + API_PUBLIC
-				return <p key={index}><Link href={creatorUrl}>{creator.name}</Link>, {creator.role}</p>
+				let index = Math.random();
+				creatorUrl = creator.resourceURI + "?apikey=" + API_PUBLIC;
+				return <p key={index}><Link href={creatorUrl}>{creator.name}</Link>, {creator.role}</p>;
 			})}
 		</div>
 	)
