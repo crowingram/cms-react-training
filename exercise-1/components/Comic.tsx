@@ -4,8 +4,8 @@ import { Detail } from './Detail';
 import styles from '@/styles/Comic.module.css';
 
 
-export const Comic = ({ comic }) => {
-	let thumbnailUrl = '';
+export const Comic = ( comic: any ) => {
+	let thumbnailUrl: string = '';
 	
 	if(comic.thumbnail) {
 		thumbnailUrl=comic.thumbnail.path + "." + comic.thumbnail.extension;
