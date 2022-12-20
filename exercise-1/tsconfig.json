@@ -105,9 +105,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-	"**/*.css",
-	"**/*.js"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"

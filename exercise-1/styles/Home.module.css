@@ -12,22 +12,12 @@
 }
 
 .grid {
-	display: grid;
-	grid-template-columns: 1fr;
-}
-@media screen and (min-width: 700px) {
-	.grid {
-		grid-template-columns: 1fr 1fr;
-	}
-}
-@media screen and (min-width: 1000px) {
-	.grid {
-		grid-template-columns: 1fr 1fr 1fr;
-	}
+	display: flex;
+	max-width: 80%;
+	flex-wrap: wrap;
 }
 
 .title a {
-  color: #0070f3;
   text-decoration: none;
 }
 

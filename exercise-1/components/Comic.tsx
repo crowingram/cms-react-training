@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import { Button } from './Button';
-import { Detail } from './Detail';
+import Button from './Button';
+import Detail from './Detail';
 import styles from '@/styles/Comic.module.css';
+import Publication from '../types/Publication';
 
-
-export const Comic = ( comic: any ) => {
+const Comic = ({comic}: Publication) => {
 	let thumbnailUrl: string = '';
-	
+
 	if(comic.thumbnail) {
 		thumbnailUrl=comic.thumbnail.path + "." + comic.thumbnail.extension;
 	}
@@ -16,10 +16,11 @@ export const Comic = ( comic: any ) => {
 			<div className={styles.thumbnail}>
 				{comic.thumbnail 
 					&& <Image src={thumbnailUrl} width={150} height={231} alt={comic.title} />}
-				<Button key={comic.id} />
+				<Button favorite={comic.favorite} />
 			</div>
 			<h2 key={comic.id}>{comic.title}</h2>
 			<Detail comic={comic} />
 		</div>
 	);
 }
+export default Comic;

@@ -1,9 +1,11 @@
 import moment from 'moment';
 import Link from 'next/link';
 import styles from '@/styles/Detail.module.css';
+import Publication from '../types/Publication';
+
 const API_PUBLIC = process.env.PUBLIC_API_KEY;
 
-export function Detail( comic: any) {
+function Detail( {comic}: Publication ) {
 	let creatorUrl = '';
 
 	return (
@@ -22,4 +24,5 @@ export function Detail( comic: any) {
 		</div>
 	)
 }
- 
+
+export default Detail;

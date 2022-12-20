@@ -6,7 +6,7 @@ const API_PUBLIC: string | undefined = process.env.NEXT_PUBLIC_PUBLIC_API_KEY;
 const API_URL: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
 const useMarvelApi = () => {
-	const [returnData, setReturnData] = useState('');
+	const [returnData, setReturnData] = useState({});
 		
 	useEffect(() => {
 		const timestamp: string = new Date().toString();
@@ -17,7 +17,7 @@ const useMarvelApi = () => {
 		const fetchData = async () => {
 			try { 
 				const res: Response = await fetch(fetch_url);
-				const comics: any = await res.json();
+				const comics: object[] = await res.json();
 				setReturnData(comics);
 			} catch (error: any) {
 				console.error("error", error);
