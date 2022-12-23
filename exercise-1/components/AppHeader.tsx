@@ -1,13 +1,13 @@
 import React from 'react'
+import Image from 'next/image';
 import styles from '../styles/AppHeader.module.css';
 
 const AppHeader = () => {
   return (
-	<>
-		<h1 className={styles.title}>
-			<span>Comic Closet</span>
-		</h1>
-	</>
+	<header className={styles.title}>
+		<Image src="/assets/logo.svg" width={150} height={231} alt="Comic Closet" />
+		<h1>Comic Closet</h1>
+	</header>
   )
 }
 

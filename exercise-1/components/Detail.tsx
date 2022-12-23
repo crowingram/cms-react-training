@@ -5,7 +5,7 @@ import Publication from '../types/Publication';
 
 const API_PUBLIC = process.env.PUBLIC_API_KEY;
 
-function Detail( {comic}: Publication ) {
+function Detail( {comic}: {comic: Publication} ) {
 	let creatorUrl = '';
 
 	return (

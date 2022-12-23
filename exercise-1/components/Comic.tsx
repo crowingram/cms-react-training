@@ -4,7 +4,7 @@ import Detail from './Detail';
 import styles from '@/styles/Comic.module.css';
 import Publication from '../types/Publication';
 
-const Comic = ({comic}: Publication) => {
+const Comic = ({comic, handleClick}: {comic: Publication, handleClick: any} ) => {
 	let thumbnailUrl: string = '';
 
 	if(comic.thumbnail) {
@@ -16,7 +16,7 @@ const Comic = ({comic}: Publication) => {
 			<div className={styles.thumbnail}>
 				{comic.thumbnail 
 					&& <Image src={thumbnailUrl} width={150} height={231} alt={comic.title} />}
-				<Button favorite={comic.favorite} />
+				<Button comic={comic} handleClick={handleClick} />
 			</div>
 			<h2 key={comic.id}>{comic.title}</h2>
 			<Detail comic={comic} />

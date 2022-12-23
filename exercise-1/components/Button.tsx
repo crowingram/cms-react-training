@@ -1,21 +1,16 @@
-import { useState } from 'react';
 import styles from '@/styles/Button.module.css';
 import { FaBolt } from 'react-icons/fa';
+import Publication from '../types/Publication';
 
-function Button( {favorite}: boolean ) {
-	const [buttonStatus, setButtonStatus] = useState(favorite);
-
-	const buttonToggle = () => {
-		setButtonStatus(!buttonStatus);
-	}
+function Button( {comic, handleClick}: {comic: Publication, handleClick: any} ) {
 
 	return (
 		<>
-			{ buttonStatus && 
-				<div className={styles.boltFavorite} onClick={buttonToggle}><span><FaBolt /></span></div> 
+			{ comic.favorite && 
+				<div className={styles.boltFavorite} onClick={handleClick}><span><FaBolt /></span></div> 
 			}
-			{ !buttonStatus && 
-				<div className={styles.bolt} onClick={buttonToggle}><span><FaBolt /></span></div> 
+			{ !comic.favorite && 
+				<div className={styles.bolt} onClick={handleClick}><span><FaBolt /></span></div> 
 			}
 		</>
 	);

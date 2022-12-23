@@ -5,6 +5,7 @@
 		description: string;
 		resourceURI: string;
 		thumbnail: object;
+		publishDate: Date;
 		creators: object[];
 		characters: object[];
 		events: object[];
