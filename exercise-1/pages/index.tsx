@@ -36,7 +36,6 @@ export default function Home() {
 				<main className={styles.main}>
 					<div className={styles.grid}>
 						{comicSubset && comics.data.results.map((comic: Publication) => {
-							comic.favorite = buttonStatus;
 							return <Comic key={comic.id} comic={comic} handleClick={handleClick} />
 						})}
 					</div>
@@ -47,7 +46,7 @@ export default function Home() {
 							if (comic.favorite) {
 								return <Favorite key={comic.id} comic={comic} />
 							} else {
-								return <p>skipped</p>
+								return 
 							}
 						})}
 					</div>
