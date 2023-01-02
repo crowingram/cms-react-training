@@ -60,7 +60,6 @@ export default function Home() {
 								<select 
 									name="creators" 
 									id="creators" 
-									value={creatorStatus} 
 									onChange={e => handleCreatorSelect(e.target.value)}
 								>
 									<option value="0">Creators</option>
@@ -75,7 +74,6 @@ export default function Home() {
 								<select 
 									name="characters" 
 									id="characters" 
-									value={characterStatus} 
 									onChange={e => handleCharacterSelect(e.target.value)}
 								>
 									<option value="0">Characters</option>
@@ -90,7 +88,7 @@ export default function Home() {
 								</select>
 							</form>
 						</div>
-						
+
 						<div className={styles.grid}>
 							{comicSubset && comics.data.results.map((comic: Publication) => {
 								return <Comic key={comic.id} comic={comic} handleClick={handleClick} />
@@ -102,7 +100,7 @@ export default function Home() {
 						<h2>Favorites</h2>
 						{comicSubset && comics.data.results.map((comic: Publication) => {
 							if (comic.favorite) {
-								return <Favorite key={comic.id} comic={comic} />
+								return <Favorite key={comic.id} comic={comic} handleClick={handleClick} />
 							} else {
 								return 
 							}
