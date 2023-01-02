@@ -14,6 +14,24 @@ export default function Home() {
 	const comicSubset: object[] = comics.data?.results;
 
 	const [buttonStatus, setButtonStatus] = useState(false);
+	const [creatorStatus, setCreatorStatus] = useState(0);
+	const [characterStatus, setCharacterStatus] = useState(0);
+
+	const handleCreatorSelect = (creators: number) => {
+		if( creators > 0 ) {
+			setCreatorStatus(creators);
+			console.log("creator:", creators);
+			console.log("creator:", creatorStatus);
+		}
+	}
+
+	const handleCharacterSelect = (characters: number) => {
+		if( characters > 0 ) {
+			setCharacterStatus(characters);
+			console.log("character:", characters);
+			console.log("character:", characterStatus);
+		}
+	}
 
 	const handleClick = () => {
 		setButtonStatus(!buttonStatus);
@@ -39,19 +57,40 @@ export default function Home() {
 						<div className={styles.dropdowns}>
 							<span>Filter by:</span>
 							<form>
-								<label htmlFor="creators">Creators</label>
-								<select name="creators" id="creators">
+								<select 
+									name="creators" 
+									id="creators" 
+									value={creatorStatus} 
+									onChange={e => handleCreatorSelect(e.target.value)}
+								>
+									<option value="0">Creators</option>
 									<option value="12787">Kate Leth</option>
+									<option value="24">Brian Michael Bendis</option>
+									<option value="30">Stan Lee</option>
+									<option value="32">Steve Ditko</option>
+									<option value="196">Jack Kirby</option>
 								</select>
 							</form>
 							<form>
-								<label htmlFor="characters">Characters</label>
-								<select name="characters" id="characters">
+								<select 
+									name="characters" 
+									id="characters" 
+									value={characterStatus} 
+									onChange={e => handleCharacterSelect(e.target.value)}
+								>
+									<option value="0">Characters</option>
 									<option value="1009368">Iron Man</option>
+									<option value="1009220">Captain America</option>
+									<option value="1009664">Thor</option>
+									<option value="1009268">Deadpool</option>
+									<option value="1009562">Scarlet Witch</option>
+									<option value="1009189">Black Widow</option>
+									<option value="1010763">Gamora</option>
+									<option value="1009707">Wasp</option>
 								</select>
-
 							</form>
 						</div>
+						
 						<div className={styles.grid}>
 							{comicSubset && comics.data.results.map((comic: Publication) => {
 								return <Comic key={comic.id} comic={comic} handleClick={handleClick} />

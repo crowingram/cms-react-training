@@ -68,3 +68,9 @@
 	display: flex;
 	gap: 20px;
 }
+
+.dropdowns #creators,
+.dropdowns #characters {
+	background-color: var(--black);
+	color: var(--white);
+}
