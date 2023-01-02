@@ -10,7 +10,7 @@ import Publication from '../types/Publication';
 
 export default function Home() {
 
-	const comics: any = useMarvelApi();
+	const comics: any = useMarvelApi('comics', '');
 	const comicSubset: object[] = comics.data?.results;
 
 	const [buttonStatus, setButtonStatus] = useState(false);

@@ -5,14 +5,14 @@ const API_PRIVATE: string | undefined = process.env.NEXT_PUBLIC_PRIVATE_API_KEY;
 const API_PUBLIC: string | undefined = process.env.NEXT_PUBLIC_PUBLIC_API_KEY;
 const API_URL: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
-const useMarvelApi = () => {
+const useMarvelApi = ( verb: string, query: string ) => {
 	const [returnData, setReturnData] = useState({});
 		
 	useEffect(() => {
 		const timestamp: string = new Date().toString();
 		const unencoded_hash: string = timestamp + API_PRIVATE + API_PUBLIC;
 		const auth: string = md5(unencoded_hash);
-		const fetch_url: string = API_URL + '/v1/public/comics?ts=' + timestamp + '&apikey=' + API_PUBLIC + '&hash=' + auth;
+		const fetch_url: string = API_URL + '/v1/public/' + verb + '?' + query + 'ts=' + timestamp + '&apikey=' + API_PUBLIC + '&hash=' + auth;
 		
 		const fetchData = async () => {
 			try { 
@@ -25,7 +25,6 @@ const useMarvelApi = () => {
 		}
 
 		fetchData();
-		console.log("fetching data");
 	}, [])
 
 	return returnData;
