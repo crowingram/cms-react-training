@@ -6,7 +6,6 @@ import Publication from '../types/Publication';
 
 const Comic = ({comic, handleClick}: {comic: Publication, handleClick: any} ) => {
 	let thumbnailUrl: string = '';
-
 	if(comic.thumbnail) {
 		thumbnailUrl=comic.thumbnail.path + "." + comic.thumbnail.extension;
 	}

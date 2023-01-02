@@ -9,16 +9,23 @@ import styles from '../styles/Home.module.css';
 import Publication from '../types/Publication';
 
 export default function Home() {
-
-	const comics: any = useMarvelApi('comics', '');
-	const comicSubset: object[] = comics.data?.results;
-
 	const [buttonStatus, setButtonStatus] = useState(false);
 	const [creatorStatus, setCreatorStatus] = useState(0);
 	const [characterStatus, setCharacterStatus] = useState(0);
+	const [page, setPage] = useState(1);
 
+	const comicsPerPage = 20;
+	let query = '';
+	let offsetValue = page * comicsPerPage;
+	if (offsetValue > 0) {
+		query += "offset=" + offsetValue + "&";
+	}
+
+	const comics: any = useMarvelApi('comics', query);
+	const comicSubset: object[] = comics.data?.results;
+	
 	const handleCreatorSelect = (creators: number) => {
-		if( creators > 0 ) {
+		if ( creators > 0 ) {
 			setCreatorStatus(creators);
 			console.log("creator:", creators);
 			console.log("creator:", creatorStatus);

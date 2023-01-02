@@ -1,3 +1,10 @@
 .favorites {
 	width: 225px;
+	padding-right: 3rem;
+	margin-bottom: 1rem;
+	display: flex;
+}
+
+.thumbnail {
+	padding-right: 20px;
 }
