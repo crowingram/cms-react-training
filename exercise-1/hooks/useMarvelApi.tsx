@@ -25,6 +25,7 @@ const useMarvelApi = () => {
 		}
 
 		fetchData();
+		console.log("fetching data");
 	}, [])
 
 	return returnData;

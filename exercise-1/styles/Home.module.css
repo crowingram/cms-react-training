@@ -44,3 +44,18 @@
 	width: 175px;
 	padding: 1rem 3rem;
 }
+
+.filters {
+	background-color: var(--black);
+	color: var(--white);
+	display: flex; 
+	justify-content: flex-start;
+	align-items: center;
+	gap: 20px;
+	padding: 0 2rem;
+}
+
+.filterForm {
+	display: flex;
+	gap: 20px;
+}
