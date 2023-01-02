@@ -13,7 +13,7 @@
 
 .grid {
 	display: flex;
-	max-width: 80%;
+	max-width: 95%;
 	flex-wrap: wrap;
 }
 
@@ -56,6 +56,15 @@
 }
 
 .filterForm {
+	display: flex;
+	gap: 20px;
+}
+
+.dropdowns {
+	background-color: var(--black);
+	color: var(--white);
+	max-width: 95%;
+	padding: 1rem 3rem;
 	display: flex;
 	gap: 20px;
 }

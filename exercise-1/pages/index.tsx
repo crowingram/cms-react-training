@@ -34,10 +34,29 @@ export default function Home() {
 				<AppHeader />
 				
 				<main className={styles.main}>
-					<div className={styles.grid}>
-						{comicSubset && comics.data.results.map((comic: Publication) => {
-							return <Comic key={comic.id} comic={comic} handleClick={handleClick} />
-						})}
+
+					<div className={styles.displayArea}>
+						<div className={styles.dropdowns}>
+							<span>Filter by:</span>
+							<form>
+								<label htmlFor="creators">Creators</label>
+								<select name="creators" id="creators">
+									<option value="12787">Kate Leth</option>
+								</select>
+							</form>
+							<form>
+								<label htmlFor="characters">Characters</label>
+								<select name="characters" id="characters">
+									<option value="1009368">Iron Man</option>
+								</select>
+
+							</form>
+						</div>
+						<div className={styles.grid}>
+							{comicSubset && comics.data.results.map((comic: Publication) => {
+								return <Comic key={comic.id} comic={comic} handleClick={handleClick} />
+							})}
+						</div>
 					</div>
 					
 					<div className={styles.favorites}>

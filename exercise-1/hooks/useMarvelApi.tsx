@@ -17,8 +17,8 @@ const useMarvelApi = ( verb: string, query: string ) => {
 		const fetchData = async () => {
 			try { 
 				const res: Response = await fetch(fetch_url);
-				const comics: object[] = await res.json();
-				setReturnData(comics);
+				const data: object[] = await res.json();
+				setReturnData(data);
 			} catch (error: any) {
 				console.error("error", error);
 			}
