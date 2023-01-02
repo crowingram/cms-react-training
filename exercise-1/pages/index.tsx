@@ -24,18 +24,20 @@ export default function Home() {
 	const comics: any = useMarvelApi('comics', query);
 	const comicSubset: object[] = comics.data?.results;
 	
-	const handleCreatorSelect = (creators: number) => {
-		if ( creators > 0 ) {
-			setCreatorStatus(creators);
-			console.log("creator:", creators);
+	const handleCreatorSelect = (creator: string) => {
+		const crtr = parseInt(creator);
+		if ( crtr > 0 ) {
+			setCreatorStatus(crtr);
+			console.log("creator:", crtr);
 			console.log("creator:", creatorStatus);
 		}
 	}
 
-	const handleCharacterSelect = (characters: number) => {
-		if( characters > 0 ) {
-			setCharacterStatus(characters);
-			console.log("character:", characters);
+	const handleCharacterSelect = (character: string) => {
+		const char = parseInt(character);
+		if( char > 0 ) {
+			setCharacterStatus(char);
+			console.log("character:", char);
 			console.log("character:", characterStatus);
 		}
 	}
