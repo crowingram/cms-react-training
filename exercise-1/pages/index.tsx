@@ -12,7 +12,7 @@ export default function Home() {
 	const [buttonStatus, setButtonStatus] = useState(false);
 	const [creatorStatus, setCreatorStatus] = useState(0);
 	const [characterStatus, setCharacterStatus] = useState(0);
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState(30);
 
 	const comicsPerPage = 20;
 	let query = '';
@@ -20,32 +20,63 @@ export default function Home() {
 	if (offsetValue > 0) {
 		query += "offset=" + offsetValue + "&";
 	}
-
-	const comics: any = useMarvelApi('comics', query);
+	let comics: any = useMarvelApi('comics', query);
 	const comicSubset: object[] = comics.data?.results;
+	const totalPages = comics.data?.total / comicsPerPage;
 	
 	const handleCreatorSelect = (creator: string) => {
 		const crtr = parseInt(creator);
 		if ( crtr > 0 ) {
 			setCreatorStatus(crtr);
 			console.log("creator:", crtr);
-			console.log("creator:", creatorStatus);
+		} else {
+			setCreatorStatus(0);
+			console.log("no creator selected")
 		}
 	}
-
 	const handleCharacterSelect = (character: string) => {
 		const char = parseInt(character);
 		if( char > 0 ) {
 			setCharacterStatus(char);
 			console.log("character:", char);
-			console.log("character:", characterStatus);
+		} else {
+			setCharacterStatus(0);
+			console.log("no character selected")
 		}
 	}
-
 	const handleClick = () => {
 		setButtonStatus(!buttonStatus);
+		console.log("handleClick");
 	}
-	
+
+	const handlePageReverse = () => {
+		if ( page >= 0 ) {
+			setPage(page - 1);
+		}
+		console.log(page);
+	}
+	const handlePageForward = () => {
+		if ( page <= totalPages ) {
+			setPage(page + 1);
+		}
+		console.log(page);
+	}
+	useEffect(() => {
+		console.log("No props")
+	})
+
+	useEffect(() => {
+		console.log("[comics] props")
+	}, [comics])
+
+	useEffect(() => {
+		console.log("[buttonStatus] props")
+	}, [buttonStatus])
+
+	useEffect(() => {
+		console.log("[page] props")
+	}, [page])
+
 	return (
 		<>
 			<div className={styles.container}>
@@ -102,6 +133,12 @@ export default function Home() {
 							{comicSubset && comics.data.results.map((comic: Publication) => {
 								return <Comic key={comic.id} comic={comic} handleClick={handleClick} />
 							})}
+						</div>
+
+						<div className={styles.pagination}>
+							<span onClick={handlePageReverse}>Back</span> 
+							&mdash; 
+							<span onClick={handlePageForward}>Next</span>
 						</div>
 					</div>
 					
