@@ -12,7 +12,7 @@ export default function Home() {
 	const [buttonStatus, setButtonStatus] = useState(false);
 	const [creatorStatus, setCreatorStatus] = useState(0);
 	const [characterStatus, setCharacterStatus] = useState(0);
-	const [page, setPage] = useState(30);
+	const [page, setPage] = useState(0);
 
 	const comicsPerPage = 20;
 	let query = '';
@@ -28,7 +28,8 @@ export default function Home() {
 		const crtr = parseInt(creator);
 		if ( crtr > 0 ) {
 			setCreatorStatus(crtr);
-			console.log("creator:", crtr);
+			console.log("crtr:", crtr);
+			console.log("creator:", creatorStatus);
 		} else {
 			setCreatorStatus(0);
 			console.log("no creator selected")
@@ -38,7 +39,8 @@ export default function Home() {
 		const char = parseInt(character);
 		if( char > 0 ) {
 			setCharacterStatus(char);
-			console.log("character:", char);
+			console.log("char:", char);
+			console.log("character:", characterStatus);
 		} else {
 			setCharacterStatus(0);
 			console.log("no character selected")
@@ -50,13 +52,13 @@ export default function Home() {
 	}
 
 	const handlePageReverse = () => {
-		if ( page >= 0 ) {
+		if ( page > 0 ) {
 			setPage(page - 1);
 		}
 		console.log(page);
 	}
 	const handlePageForward = () => {
-		if ( page <= totalPages ) {
+		if ( page < totalPages ) {
 			setPage(page + 1);
 		}
 		console.log(page);
