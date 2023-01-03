@@ -20,7 +20,7 @@ export default function Home() {
 	if (offsetValue > 0) {
 		query += "offset=" + offsetValue + "&";
 	}
-	let comics: any = useMarvelApi('comics', query);
+	const comics: any = useMarvelApi('comics', query);
 	const comicSubset: object[] = comics.data?.results;
 	const totalPages = comics.data?.total / comicsPerPage;
 	

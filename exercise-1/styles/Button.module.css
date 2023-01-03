@@ -1,18 +1,4 @@
-.bolt {
-	display: block;
-	position: absolute;
-	text-align: center;
-	z-index: 10;
-	height: 30px;
-	width: 30px;
-	bottom: -5px;
-	left: 60px;
-	border-radius: 15px;
-	cursor: pointer;
-	color: white;
-	background-color: black;
-}
-
+.bolt,
 .boltFavorite {
 	display: block;
 	position: absolute;
@@ -25,6 +11,13 @@
 	border-radius: 15px;
 	cursor: pointer;
 	color: white;
+}
+
+.bolt {
+	background-color: black;
+}
+
+.boltFavorite {
 	background-color: red;
 	border: 1px solid white;
 }
@@ -33,6 +26,6 @@
 .boltFavorite span {
 	display: block;
 	position: absolute;
-	top: 7px;
-	left: 7px;
+	top: 8px;
+	left: 8px;
 }
