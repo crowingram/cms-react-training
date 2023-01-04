@@ -18,7 +18,7 @@ export default function Home() {
 	let favorites: number[] = [];
 
 	const comicsPerPage = 15;
-	const querySettings = 'format=comic&formatType=comic&noVariants=true&';
+	const querySettings = 'format=comic&formatType=comic&noVariants=true&limit=' + comicsPerPage;
 	let query = '';
 	if (creator > 0) {
 		query += "creators=" + creator + "&";
@@ -28,9 +28,9 @@ export default function Home() {
 	}
 	let offsetValue = page * comicsPerPage;  // Pagination offset
 	if (offsetValue > 0) {
-		query += querySettings + "limit=" + comicsPerPage + "&offset=" + offsetValue + "&"; // End each query with an ampersand
+		query += querySettings + "&offset=" + offsetValue + "&"; // End each query with an ampersand
 	} else {
-		query += querySettings + "limit=" + comicsPerPage + "&";
+		query += querySettings + "&";
 	}
 	console.log(query);
 	let comics: any = useMarvelApi('comics', query, page, character, creator);
@@ -45,6 +45,7 @@ export default function Home() {
 			setCharacter(0);
 		} else {
 			setCreator(0);
+			setPage(0);
 		}
 	}
 	const handleCharacterSelect = (character: string) => {
@@ -55,6 +56,7 @@ export default function Home() {
 			setCreator(0);
 		} else {
 			setCharacter(0);
+			setPage(0);
 		}
 	}
 	const handleClick = () => {

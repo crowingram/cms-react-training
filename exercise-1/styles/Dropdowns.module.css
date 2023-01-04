@@ -1,0 +1,29 @@
+.filters {
+	background-color: var(--black);
+	color: var(--white);
+	display: flex; 
+	justify-content: flex-start;
+	align-items: center;
+	gap: 20px;
+	padding: 0 2rem;
+}
+
+.filterForm {
+	display: flex;
+	gap: 20px;
+}
+
+.dropdowns {
+	background-color: var(--black);
+	color: var(--white);
+	max-width: 95%;
+	padding: 1rem 3rem;
+	display: flex;
+	gap: 20px;
+}
+
+.dropdowns #creators,
+.dropdowns #characters {
+	background-color: var(--black);
+	color: var(--white);
+}
