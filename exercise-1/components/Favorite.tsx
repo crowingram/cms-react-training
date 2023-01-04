@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import styles from '../styles/Favorite.module.css';
 import Publication from '../types/Publication';
-import { FaCompactDisc } from 'react-icons/fa';
 
 const Favorite = ({ comic, handleClick }: {comic: Publication, handleClick: any}) => {
 	let thumbnailUrl: string = '';
