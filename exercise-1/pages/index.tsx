@@ -4,50 +4,72 @@ import Comic from '../components/Comic';
 import AppHeader from '../components/AppHeader';
 import AppFooter from '../components/AppFooter';
 import Favorite from '../components/Favorite';
+import Dropdowns from '../components/Dropdowns';
 import useMarvelApi from '../hooks/useMarvelApi';
 import styles from '../styles/Home.module.css';
 import Publication from '../types/Publication';
 
 export default function Home() {
 	const [buttonStatus, setButtonStatus] = useState(false);
-	const [creatorStatus, setCreatorStatus] = useState(0);
-	const [characterStatus, setCharacterStatus] = useState(0);
+	const [creator, setCreator] = useState(0);
+	const [character, setCharacter] = useState(0);
 	const [page, setPage] = useState(0);
 
-	const comicsPerPage = 20;
+	let favorites: number[] = [];
+
+	const comicsPerPage = 15;
+	const querySettings = 'format=comic&formatType=comic&noVariants=true&';
 	let query = '';
-	let offsetValue = page * comicsPerPage;
-	if (offsetValue > 0) {
-		query += "offset=" + offsetValue + "&";
+	if (creator > 0) {
+		query += "creators=" + creator + "&";
 	}
-	const comics: any = useMarvelApi('comics', query);
-	const comicSubset: object[] = comics.data?.results;
-	const totalPages = comics.data?.total / comicsPerPage;
+	if (character > 0) {
+		query += "characters=" + character + "&";
+	}
+	let offsetValue = page * comicsPerPage;  // Pagination offset
+	if (offsetValue > 0) {
+		query += querySettings + "limit=" + comicsPerPage + "&offset=" + offsetValue + "&"; // End each query with an ampersand
+	} else {
+		query += querySettings + "limit=" + comicsPerPage + "&";
+	}
+	console.log(query);
+	let comics: any = useMarvelApi('comics', query, page, character, creator);
+	let comicSubset: object[] = comics.data?.results;
+	let totalPages = Math.ceil(comics.data?.total / comicsPerPage);
 	
 	const handleCreatorSelect = (creator: string) => {
 		const crtr = parseInt(creator);
 		if ( crtr > 0 ) {
-			setCreatorStatus(crtr);
-			console.log("crtr:", crtr);
-			console.log("creator:", creatorStatus);
+			setCreator(crtr);
+			setPage(0);
+			setCharacter(0);
 		} else {
-			setCreatorStatus(0);
-			console.log("no creator selected")
+			setCreator(0);
 		}
 	}
 	const handleCharacterSelect = (character: string) => {
 		const char = parseInt(character);
-		if( char > 0 ) {
-			setCharacterStatus(char);
-			console.log("char:", char);
-			console.log("character:", characterStatus);
+		if ( char > 0 ) {
+			setCharacter(char);
+			setPage(0);
+			setCreator(0);
 		} else {
-			setCharacterStatus(0);
-			console.log("no character selected")
+			setCharacter(0);
 		}
 	}
 	const handleClick = () => {
 		setButtonStatus(!buttonStatus);
+		if ( buttonStatus ) {
+			// remove favorited comic.id from favorites array
+			//let favoriteIndex = favorites.findIndex(comics.data.results.id);
+			//favorites = favorites.splice(favoriteIndex, 1);
+			console.log('Remove from favorites');
+			console.log(favorites);
+		} else if ( favorites.length < 10 ) {
+			favorites = [...favorites, comics.data.results.id];
+			console.log('Add to favorites');
+			console.log(favorites);
+		}
 		console.log("handleClick");
 	}
 
@@ -58,23 +80,21 @@ export default function Home() {
 		console.log(page);
 	}
 	const handlePageForward = () => {
-		if ( page < totalPages ) {
+		if ( page < totalPages-1 ) {
 			setPage(page + 1);
 		}
 		console.log(page);
 	}
+
 	useEffect(() => {
 		console.log("No props")
 	})
-
 	useEffect(() => {
 		console.log("[comics] props")
 	}, [comics])
-
 	useEffect(() => {
 		console.log("[buttonStatus] props")
 	}, [buttonStatus])
-
 	useEffect(() => {
 		console.log("[page] props")
 	}, [page])
@@ -96,50 +116,20 @@ export default function Home() {
 				<main className={styles.main}>
 
 					<div className={styles.displayArea}>
-						<div className={styles.dropdowns}>
-							<span>Filter by:</span>
-							<form>
-								<select 
-									name="creators" 
-									id="creators" 
-									onChange={e => handleCreatorSelect(e.target.value)}
-								>
-									<option value="0">Creators</option>
-									<option value="12787">Kate Leth</option>
-									<option value="24">Brian Michael Bendis</option>
-									<option value="30">Stan Lee</option>
-									<option value="32">Steve Ditko</option>
-									<option value="196">Jack Kirby</option>
-								</select>
-							</form>
-							<form>
-								<select 
-									name="characters" 
-									id="characters" 
-									onChange={e => handleCharacterSelect(e.target.value)}
-								>
-									<option value="0">Characters</option>
-									<option value="1009368">Iron Man</option>
-									<option value="1009220">Captain America</option>
-									<option value="1009664">Thor</option>
-									<option value="1009268">Deadpool</option>
-									<option value="1009562">Scarlet Witch</option>
-									<option value="1009189">Black Widow</option>
-									<option value="1010763">Gamora</option>
-									<option value="1009707">Wasp</option>
-								</select>
-							</form>
-						</div>
+						<Dropdowns 
+							handleCharacterSelect={handleCharacterSelect} 
+							handleCreatorSelect={handleCreatorSelect} 
+						/>
 
 						<div className={styles.grid}>
-							{comicSubset && comics.data.results.map((comic: Publication) => {
-								return <Comic key={comic.id} comic={comic} handleClick={handleClick} />
-							})}
+								{comicSubset && comics.data.results.map((comic: Publication) => {
+									return <Comic key={comic.id} comic={comic} handleClick={handleClick} />
+								})}
 						</div>
 
 						<div className={styles.pagination}>
 							<span onClick={handlePageReverse}>Back</span> 
-							&mdash; 
+							&mdash; Page {page + 1} of {totalPages} &mdash;
 							<span onClick={handlePageForward}>Next</span>
 						</div>
 					</div>

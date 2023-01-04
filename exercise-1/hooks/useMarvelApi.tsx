@@ -5,7 +5,7 @@ const API_PRIVATE: string | undefined = process.env.NEXT_PUBLIC_PRIVATE_API_KEY;
 const API_PUBLIC: string | undefined = process.env.NEXT_PUBLIC_PUBLIC_API_KEY;
 const API_URL: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
-const useMarvelApi = ( verb: string, query: string ) => {
+const useMarvelApi = ( verb: string, query: string, page: number, character: number, creator: number ) => {
 	const [returnData, setReturnData] = useState({});
 		
 	useEffect(() => {
@@ -14,6 +14,7 @@ const useMarvelApi = ( verb: string, query: string ) => {
 		const auth: string = md5(unencoded_hash);
 		const fetch_url: string = API_URL + '/v1/public/' + verb + '?' + query + 'ts=' + timestamp + '&apikey=' + API_PUBLIC + '&hash=' + auth;
 		
+	console.log('fetch called');
 		const fetchData = async () => {
 			try { 
 				const res: Response = await fetch(fetch_url);
@@ -25,7 +26,7 @@ const useMarvelApi = ( verb: string, query: string ) => {
 		}
 
 		fetchData();
-	}, [])
+	}, [page, character, creator])
 
 	return returnData;
 }

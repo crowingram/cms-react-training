@@ -8,7 +8,7 @@ function Detail( {comic}: {comic: Publication} ) {
 		<div className={styles.detail}>
 			{ comic.issueNumber > 0 && <p><b>Issue:</b> {comic.issueNumber}</p> }
 
-			{ <p><b>Published:</b> { moment(comic.publishDate).format('LL') }</p>}
+			{ <p><b>Published:</b> { moment(comic.dates[0].date).format('LL') }</p>}
 
 			{ comic.creators && comic.creators.available === 1 && <p><b>Creator:</b></p> }
 			{ comic.creators && comic.creators.available > 1 && <p><b>Creators:</b></p> }
