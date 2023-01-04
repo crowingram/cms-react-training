@@ -17,6 +17,7 @@ export default function Home() {
 
 	let favorites: number[] = [];
 
+
 	const comicsPerPage = 15;
 	const querySettings = 'format=comic&formatType=comic&noVariants=true&limit=' + comicsPerPage;
 	let query = '';
@@ -59,16 +60,22 @@ export default function Home() {
 			setPage(0);
 		}
 	}
-	const handleClick = () => {
+	const handleClick = ( id: number ) => {
+		// Remove comic.id from favorites array
+		// Add comic.id to favorites array
 		setButtonStatus(!buttonStatus);
 		if ( buttonStatus ) {
 			// remove favorited comic.id from favorites array
 			//let favoriteIndex = favorites.findIndex(comics.data.results.id);
-			//favorites = favorites.splice(favoriteIndex, 1);
+			const favId = (element: number) => element == id;
+			let favoriteIndex = favorites.findIndex(favId);
+			// if favoriteIndex === -1, then why is buttonStatus true?
+			favorites = favorites.splice(favoriteIndex, 1);
+			console.log(favoriteIndex);
 			console.log('Remove from favorites');
 			console.log(favorites);
 		} else if ( favorites.length < 10 ) {
-			favorites = [...favorites, comics.data.results.id];
+			favorites.push(id);
 			console.log('Add to favorites');
 			console.log(favorites);
 		}
@@ -125,7 +132,7 @@ export default function Home() {
 
 						<div className={styles.grid}>
 								{comicSubset && comics.data.results.map((comic: Publication) => {
-									return <Comic key={comic.id} comic={comic} handleClick={handleClick} />
+									return <Comic key={comic.id} comic={comic} handleClick={handleClick} favorites={favorites} />
 								})}
 						</div>
 
@@ -139,6 +146,7 @@ export default function Home() {
 					<div className={styles.favorites}>
 						<h2>Favorites</h2>
 						{comicSubset && comics.data.results.map((comic: Publication) => {
+							// map through favorites array and display those issues
 							if (comic.favorite) {
 								return <Favorite key={comic.id} comic={comic} handleClick={handleClick} />
 							} else {
