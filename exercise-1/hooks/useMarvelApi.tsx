@@ -5,7 +5,7 @@ const API_PRIVATE: string | undefined = process.env.NEXT_PUBLIC_PRIVATE_API_KEY;
 const API_PUBLIC: string | undefined = process.env.NEXT_PUBLIC_PUBLIC_API_KEY;
 const API_URL: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
-const useMarvelApi = ( verb: string, query: string, page: number, character: number, creator: number ) => {
+const useMarvelApi = ( verb: string, query: string, page?: number, character?: number, creator?: number, favorites?: number[]) => {
 	const [returnData, setReturnData] = useState({});
 		
 	useEffect(() => {
@@ -26,7 +26,7 @@ const useMarvelApi = ( verb: string, query: string, page: number, character: num
 		}
 
 		fetchData();
-	}, [page, character, creator])
+	}, [page, character, creator, favorites])
 
 	return returnData;
 }

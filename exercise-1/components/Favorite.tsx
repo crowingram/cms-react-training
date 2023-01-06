@@ -22,7 +22,7 @@ const Favorite = ({ comic, handleClick, favorites }: {comic: Publication, handle
 	return (
 		<div className={styles.favorites}>
 			<div className={styles.thumbnail} onClick={handleUpdate}><Image src={thumbnailUrl} width={40} height={62} alt={comic.title} /></div>
-			<button onClick={handleUpdate}>{comic.title}</button> 
+			<p onClick={handleUpdate}>{comic.title}</p> 
 		</div>
 	)
 }

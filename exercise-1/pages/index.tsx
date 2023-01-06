@@ -4,6 +4,7 @@ import Comic from '../components/Comic';
 import AppHeader from '../components/AppHeader';
 import AppFooter from '../components/AppFooter';
 import Favorite from '../components/Favorite';
+import Fave from '../components/Fave';
 import Dropdowns from '../components/Dropdowns';
 import useMarvelApi from '../hooks/useMarvelApi';
 import styles from '../styles/Home.module.css';
@@ -30,7 +31,7 @@ export default function Home() {
 	} else {
 		query += querySettings + "&";
 	}
-	let comics: any = useMarvelApi('comics', query, page, character, creator);
+	let comics: any = useMarvelApi('comics', query, page, character, creator, favorites);
 	let comicSubset: object[] = comics.data?.results;
 	let totalPages = Math.ceil(comics.data?.total / comicsPerPage);
 	
@@ -95,6 +96,9 @@ export default function Home() {
 	useEffect(() => {
 		console.log("[page] props")
 	}, [page])
+	useEffect(() => {
+		console.log("[favorites] props")
+	}, [favorites])
 
 	return (
 		<>
@@ -126,24 +130,33 @@ export default function Home() {
 								})}
 						</div>
 
-						<div className={styles.pagination}>
-							<span onClick={handlePageReverse}>Back</span> 
-							&mdash; Page {page + 1} of {totalPages} &mdash;
-							<span onClick={handlePageForward}>Next</span>
-						</div>
+						{!!totalPages && 
+							<div className={styles.pagination}>
+								<span onClick={handlePageReverse}>Back</span> 
+								&mdash; Page {page + 1} of {totalPages} &mdash;
+								<span onClick={handlePageForward}>Next</span>
+							</div>
+						}
 					</div>
 					
 					<div className={styles.favorites}>
 						<h2>Favorites</h2>
 						{comicSubset && comics.data.results.map((comic: Publication) => {
 							// map through favorites array and display those issues
-							if (favorites.includes(comic.id) > 0) {
+							if (favorites.includes(comic.id)) {
 								return <Favorite key={comic.id} comic={comic} handleClick={handleClick} favorites={favorites} />
 							} else {
-								return 
+								return;
 							}
 						})}
 					</div>
+
+					{/*<div className={styles.favorites}>
+						<h2>Favorites</h2>
+						{favorites.map((favoriteId: number) => {
+							<Fave key={favoriteId} favoriteId={favoriteId} handleClick={handleClick} favorites={favorites} />
+						})}
+					</div>*/}
 				</main>
 					
 				<AppFooter />

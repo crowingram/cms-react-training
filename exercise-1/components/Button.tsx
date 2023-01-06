@@ -1,10 +1,14 @@
 import styles from '@/styles/Button.module.css';
-import { FaBolt } from 'react-icons/fa';
+import { FaBolt, FaCompactDisc } from 'react-icons/fa';
 import Publication from '../types/Publication';
 
 function Button( {comic, handleClick, favorites}: {comic: Publication, handleClick: any, favorites: number[]} ) {
 	const handleUpdate = () => {
-		handleClick(comic.id);
+		if (favorites.length < 10 && !favorites.includes(comic.id)) {
+			handleClick(comic.id);
+		} else if (favorites.includes(comic.id)) {
+			handleClick(comic.id);
+		}
 	}
 
 	//check favorites array to determine whether bolt is on or off - map
@@ -12,21 +16,6 @@ function Button( {comic, handleClick, favorites}: {comic: Publication, handleCli
 	//   bolt is red
 	// else
 	//   bolt is black 
-
-	
-	const favId = (element: number) => element === comic.id;
-	let favoriteIndex = favorites.findIndex(favId);
-	if ( favoriteIndex === -1) {
-		console.log(`${comic.id} black - per favoriteIndex`);
-	} else {
-		console.log(`${comic.id} red`);
-	}
-
-	if ( favorites.includes(comic.id) ) { 
-		console.log(comic.id, 'Favorite')
-	} else {
-		console.log(comic.id, 'black - per favorites')
-	}
 
 	return (
 		<>
