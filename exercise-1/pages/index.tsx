@@ -126,6 +126,8 @@ export default function Home() {
 
 					<div className={styles.displayArea}>
 						<Dropdowns 
+							character={character}
+							creator={creator}
 							handleCharacterSelect={handleCharacterSelect} 
 							handleCreatorSelect={handleCreatorSelect} 
 						/>

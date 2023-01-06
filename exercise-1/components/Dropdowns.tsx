@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../styles/Dropdowns.module.css';
 
-const Dropdowns = ({handleCharacterSelect, handleCreatorSelect}: {handleCharacterSelect: any, handleCreatorSelect: any}) => {
+const Dropdowns = ({character, creator, handleCharacterSelect, handleCreatorSelect}: {character: number, creator: number, handleCharacterSelect: any, handleCreatorSelect: any}) => {
 	return (
 		<div>
 			<div className={styles.dropdowns}>
@@ -10,6 +10,7 @@ const Dropdowns = ({handleCharacterSelect, handleCreatorSelect}: {handleCharacte
 					<select 
 						name="creators" 
 						id="creators" 
+						value={creator}
 						onChange={e => handleCreatorSelect(e.target.value)}
 					>
 						<option value="0">Creators</option>
@@ -24,6 +25,7 @@ const Dropdowns = ({handleCharacterSelect, handleCreatorSelect}: {handleCharacte
 					<select 
 						name="characters" 
 						id="characters" 
+						value={character}
 						onChange={e => handleCharacterSelect(e.target.value)}
 					>
 						<option value="0">Characters</option>

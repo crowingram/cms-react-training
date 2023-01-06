@@ -41,7 +41,7 @@
 .favorites {
 	background-color: var(--black);
 	color: var(--white);
-	width: 100%;
+	width: 50%;
 	padding: 1rem 3rem;
 }
 
