@@ -10,13 +10,10 @@ import styles from '../styles/Home.module.css';
 import Publication from '../types/Publication';
 
 export default function Home() {
-	const [buttonStatus, setButtonStatus] = useState(false);
 	const [creator, setCreator] = useState(0);
 	const [character, setCharacter] = useState(0);
 	const [page, setPage] = useState(0);
-
-	let favorites: number[] = [];
-
+	const [favorites, setFavorites] = useState([]);
 
 	const comicsPerPage = 15;
 	const querySettings = 'format=comic&formatType=comic&noVariants=true&limit=' + comicsPerPage;
@@ -33,7 +30,6 @@ export default function Home() {
 	} else {
 		query += querySettings + "&";
 	}
-	console.log(query);
 	let comics: any = useMarvelApi('comics', query, page, character, creator);
 	let comicSubset: object[] = comics.data?.results;
 	let totalPages = Math.ceil(comics.data?.total / comicsPerPage);
@@ -61,22 +57,19 @@ export default function Home() {
 		}
 	}
 	const handleClick = ( id: number ) => {
-		// Remove comic.id from favorites array
-		// Add comic.id to favorites array
-		setButtonStatus(!buttonStatus);
-		if ( buttonStatus ) {
-			// remove favorited comic.id from favorites array
-			//let favoriteIndex = favorites.findIndex(comics.data.results.id);
-			const favId = (element: number) => element == id;
-			let favoriteIndex = favorites.findIndex(favId);
-			// if favoriteIndex === -1, then why is buttonStatus true?
-			favorites = favorites.splice(favoriteIndex, 1);
-			console.log(favoriteIndex);
-			console.log('Remove from favorites');
+		const favId = (element: number) => element === id;
+		let favoriteIndex = favorites.findIndex(favId);
+		console.log(favoriteIndex);
+
+		if ( favoriteIndex === -1 ) {
+			let workingFavorites: number[] = favorites;
+			workingFavorites.push(id);
+			setFavorites(workingFavorites);
 			console.log(favorites);
-		} else if ( favorites.length < 10 ) {
-			favorites.push(id);
-			console.log('Add to favorites');
+		} else {
+			let workingFavorites: number[] = favorites;
+			workingFavorites.splice(favoriteIndex, 1);
+			setFavorites(workingFavorites);
 			console.log(favorites);
 		}
 		console.log("handleClick");
@@ -86,13 +79,11 @@ export default function Home() {
 		if ( page > 0 ) {
 			setPage(page - 1);
 		}
-		console.log(page);
 	}
 	const handlePageForward = () => {
 		if ( page < totalPages-1 ) {
 			setPage(page + 1);
 		}
-		console.log(page);
 	}
 
 	useEffect(() => {
@@ -101,9 +92,6 @@ export default function Home() {
 	useEffect(() => {
 		console.log("[comics] props")
 	}, [comics])
-	useEffect(() => {
-		console.log("[buttonStatus] props")
-	}, [buttonStatus])
 	useEffect(() => {
 		console.log("[page] props")
 	}, [page])
@@ -134,7 +122,7 @@ export default function Home() {
 
 						<div className={styles.grid}>
 								{comicSubset && comics.data.results.map((comic: Publication) => {
-									return <Comic key={comic.id} comic={comic} handleClick={handleClick} favorites={favorites} />
+										return <Comic key={comic.id} comic={comic} handleClick={handleClick} favorites={favorites} />
 								})}
 						</div>
 
@@ -149,8 +137,8 @@ export default function Home() {
 						<h2>Favorites</h2>
 						{comicSubset && comics.data.results.map((comic: Publication) => {
 							// map through favorites array and display those issues
-							if (comic.favorite) {
-								return <Favorite key={comic.id} comic={comic} handleClick={handleClick} />
+							if (favorites.includes(comic.id) > 0) {
+								return <Favorite key={comic.id} comic={comic} handleClick={handleClick} favorites={favorites} />
 							} else {
 								return 
 							}
