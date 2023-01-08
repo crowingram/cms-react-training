@@ -11,12 +11,6 @@ function Button( {comic, handleClick, favorites}: {comic: Publication, handleCli
 		}
 	}
 
-	//check favorites array to determine whether bolt is on or off - map
-	// if favorites.includes(comic.id) 
-	//   bolt is red
-	// else
-	//   bolt is black 
-
 	return (
 		<>
 			{ favorites.includes(comic.id) && 

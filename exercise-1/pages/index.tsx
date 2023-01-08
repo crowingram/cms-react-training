@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Comic from '../components/Comic';
 import AppHeader from '../components/AppHeader';
 import AppFooter from '../components/AppFooter';
-import Favorite from '../components/Favorite';
 import Fave from '../components/Fave';
 import Dropdowns from '../components/Dropdowns';
 import useMarvelApi from '../hooks/useMarvelApi';
@@ -60,18 +59,18 @@ export default function Home() {
 	const handleClick = ( id: number ) => {
 		const favId = (element: number) => element === id;
 		let favoriteIndex = favorites.findIndex(favId);
-		console.log(favoriteIndex);
+		console.log('Favorite index=', favoriteIndex);
 
 		if ( favoriteIndex === -1 ) {
 			let workingFavorites: number[] = favorites;
 			workingFavorites.push(id);
 			setFavorites(workingFavorites);
-			console.log(favorites);
+			console.log('Favorites=', favorites);
 		} else {
 			let workingFavorites: number[] = favorites;
 			workingFavorites.splice(favoriteIndex, 1);
 			setFavorites(workingFavorites);
-			console.log(favorites);
+			console.log('Favorites=', favorites);
 		}
 		console.log("handleClick");
 	}
@@ -86,19 +85,6 @@ export default function Home() {
 			setPage(page + 1);
 		}
 	}
-
-	useEffect(() => {
-		console.log("No props")
-	})
-	useEffect(() => {
-		console.log("[comics] props")
-	}, [comics])
-	useEffect(() => {
-		console.log("[page] props")
-	}, [page])
-	useEffect(() => {
-		console.log("[favorites] props")
-	}, [favorites])
 
 	return (
 		<>
@@ -139,7 +125,7 @@ export default function Home() {
 						}
 					</div>
 					
-					<div className={styles.favorites}>
+					{/*<div className={styles.favorites}>
 						<h2>Favorites</h2>
 						{comicSubset && comics.data.results.map((comic: Publication) => {
 							if (favorites.includes(comic.id)) {
@@ -148,12 +134,11 @@ export default function Home() {
 								return;
 							}
 						})}
-					</div>
+					</div>*/}
 
 					<div className={styles.favorites}>
 						<h2>Favorites</h2>
 						{favorites[0] && favorites.map((favorite: number) => {
-							// map through favorites array and display those issues
 							if ( favorite > 0 ) {
 								return <Fave key={favorite} favoriteId={favorite} handleClick={handleClick} favorites={favorites} />
 							} else {
