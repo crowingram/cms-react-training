@@ -142,7 +142,6 @@ export default function Home() {
 					<div className={styles.favorites}>
 						<h2>Favorites</h2>
 						{comicSubset && comics.data.results.map((comic: Publication) => {
-							// map through favorites array and display those issues
 							if (favorites.includes(comic.id)) {
 								return <Favorite key={comic.id} comic={comic} handleClick={handleClick} favorites={favorites} />
 							} else {
@@ -151,12 +150,17 @@ export default function Home() {
 						})}
 					</div>
 
-					{/*<div className={styles.favorites}>
+					<div className={styles.favorites}>
 						<h2>Favorites</h2>
-						{favorites.map((favoriteId: number) => {
-							<Fave key={favoriteId} favoriteId={favoriteId} handleClick={handleClick} favorites={favorites} />
+						{favorites[0] && favorites.map((favorite: number) => {
+							// map through favorites array and display those issues
+							if ( favorite > 0 ) {
+								return <Fave key={favorite} favoriteId={favorite} handleClick={handleClick} favorites={favorites} />
+							} else {
+								return
+							}
 						})}
-					</div>*/}
+					</div>
 				</main>
 					
 				<AppFooter />

@@ -10,25 +10,29 @@ const Fave = ({favoriteId, handleClick, favorites}: {favoriteId: number, handleC
 
 	verb += 'comics/' + favoriteId;
 	
-	console.log(verb);
+	console.log('verb=', verb);
 	let favComic: any = useMarvelApi(verb, query,0,0,0,favorites);
-
+	console.log('favComic=', favComic);
 	
 	let thumbnailUrl: string = '';
-	if(favComic.thumbnail) {
-		thumbnailUrl=favComic.thumbnail.path + "." + favComic.thumbnail.extension;
-		console.log(thumbnailUrl)
+	if(favComic.data?.results[0].thumbnail) {
+		thumbnailUrl=favComic.data.results[0].thumbnail.path + "." + favComic.data.results[0].thumbnail.extension;
 	}
+		console.log('thumbnailUrl=', thumbnailUrl)
 
 	const handleUpdate = () => {
 		handleClick(favoriteId);
 	}
 
 	return (
-		<div className={styles.favorites}>
-			<div className={styles.thumbnail} onClick={handleUpdate}><Image src={thumbnailUrl} width={40} height={62} alt={favComic.title} /></div>
-			<p onClick={handleUpdate}>{favComic.title}</p> 
-		</div>
+		<>
+			<div className={styles.favorites}>
+				{favComic && 
+					<div className={styles.thumbnail} onClick={handleUpdate}><Image src={thumbnailUrl} width={40} height={62} alt={favComic.data?.results[0].title} /></div>
+				}
+				<p onClick={handleUpdate}>{favComic.data?.results[0].title}</p> 
+			</div>
+		</>
   )
 }
 
