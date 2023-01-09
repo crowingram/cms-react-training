@@ -1,30 +1,38 @@
-import React from 'react';
+import React from 'react'
 import Image from 'next/image';
 import styles from '../styles/Favorite.module.css';
-import Publication from '../types/Publication';
+import useMarvelApi from '../hooks/useMarvelApi';
 
-const Favorite = ({ comic, handleClick, favorites }: {comic: Publication, handleClick: any, favorites: number[]}) => {
-	let thumbnailUrl: string = '';
-	if(comic.thumbnail) {
-		thumbnailUrl=comic.thumbnail.path + "." + comic.thumbnail.extension;
-	}
+const Favorite = ({favoriteId, handleClick, favorites}: {favoriteId: number, handleClick: any, favorites: number[]}) => {
+
+	let verb = '';
+	let query = '';
+
+	verb += 'comics/' + favoriteId;
 	
-	if ( favorites.includes(comic.id) ) {
-		console.log(comic.id, 'Favorite')
-	} else {
-		console.log(comic.id, 'black')
+	let favComic: any = useMarvelApi(verb, query,0,0,0,favorites);
+	
+	let thumbnailUrl: string = '';
+	if(favComic.data?.results[0].thumbnail.path) {
+		thumbnailUrl=favComic.data.results[0].thumbnail.path + "." + favComic.data.results[0].thumbnail.extension;
 	}
 
 	const handleUpdate = () => {
-		handleClick(comic.id);
+		handleClick(favoriteId);
 	}
 
 	return (
-		<div className={styles.favorites}>
-			<div className={styles.thumbnail} onClick={handleUpdate}><Image src={thumbnailUrl} width={40} height={62} alt={comic.title} /></div>
-			<p onClick={handleUpdate}>{comic.title}</p> 
-		</div>
-	)
+		<>
+			<div className={styles.favorites}>
+				{thumbnailUrl && 
+					<div className={styles.thumbnail} onClick={handleUpdate}><Image src={thumbnailUrl} width={40} height={62} alt={favComic.data?.results[0].title} /></div>
+				}
+				{thumbnailUrl && 
+					<p onClick={handleUpdate}>{favComic.data?.results[0].title}</p> 
+				}
+			</div>
+		</>
+  )
 }
 
 export default Favorite

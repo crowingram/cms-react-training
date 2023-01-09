@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Comic from '../components/Comic';
 import AppHeader from '../components/AppHeader';
 import AppFooter from '../components/AppFooter';
-import Fave from '../components/Fave';
+import Favorite from '../components/Favorite';
 import Dropdowns from '../components/Dropdowns';
 import useMarvelApi from '../hooks/useMarvelApi';
 import styles from '../styles/Home.module.css';
@@ -98,7 +98,7 @@ export default function Home() {
 					<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet" />
 				</Head>
 
-				<AppHeader />
+				<AppHeader favorites={favorites} />
 				
 				<main className={styles.main}>
 
@@ -124,23 +124,14 @@ export default function Home() {
 							</div>
 						}
 					</div>
-					
-					{/*<div className={styles.favorites}>
-						<h2>Favorites</h2>
-						{comicSubset && comics.data.results.map((comic: Publication) => {
-							if (favorites.includes(comic.id)) {
-								return <Favorite key={comic.id} comic={comic} handleClick={handleClick} favorites={favorites} />
-							} else {
-								return;
-							}
-						})}
-					</div>*/}
 
 					<div className={styles.favorites}>
-						<h2>Favorites</h2>
+						<h2>
+							Favorites	
+						</h2>
 						{favorites[0] && favorites.map((favorite: number) => {
 							if ( favorite > 0 ) {
-								return <Fave key={favorite} favoriteId={favorite} handleClick={handleClick} favorites={favorites} />
+								return <Favorite key={favorite} favoriteId={favorite} handleClick={handleClick} favorites={favorites} />
 							} else {
 								return
 							}
