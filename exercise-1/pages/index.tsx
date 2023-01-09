@@ -126,9 +126,7 @@ export default function Home() {
 					</div>
 
 					<div className={styles.favorites}>
-						<h2>
-							Favorites	
-						</h2>
+						<h2>Favorites</h2>
 						{favorites[0] && favorites.map((favorite: number) => {
 							if ( favorite > 0 ) {
 								return <Favorite key={favorite} favoriteId={favorite} handleClick={handleClick} favorites={favorites} />
