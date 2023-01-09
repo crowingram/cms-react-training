@@ -1,5 +1,5 @@
 import styles from '@/styles/Button.module.css';
-import { FaBolt, FaCompactDisc } from 'react-icons/fa';
+import { FaBolt } from 'react-icons/fa';
 import Publication from '../types/Publication';
 
 function Button( {comic, handleClick, favorites}: {comic: Publication, handleClick: any, favorites: number[]} ) {

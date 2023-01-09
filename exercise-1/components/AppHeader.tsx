@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaBolt } from 'react-icons/fa';
 import styles from '../styles/AppHeader.module.css';
 
 const AppHeader = ({favorites}: {favorites: number[]}) => {
@@ -14,7 +15,7 @@ const AppHeader = ({favorites}: {favorites: number[]}) => {
 						<div><Link href="/">Home</Link></div>
 						<div><Link href="/">Shop</Link></div>
 						<div>
-							Favorites
+							<FaBolt /> Favorites
 							{ favorites.length > 0 && <span>&ensp;({favorites.length})</span>}
 						</div>
 					</div>
