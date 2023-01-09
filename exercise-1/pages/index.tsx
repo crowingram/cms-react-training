@@ -59,20 +59,16 @@ export default function Home() {
 	const handleClick = ( id: number ) => {
 		const favId = (element: number) => element === id;
 		let favoriteIndex = favorites.findIndex(favId);
-		console.log('Favorite index=', favoriteIndex);
-
+		
 		if ( favoriteIndex === -1 ) {
 			let workingFavorites: number[] = favorites;
 			workingFavorites.push(id);
 			setFavorites(workingFavorites);
-			console.log('Favorites=', favorites);
 		} else {
 			let workingFavorites: number[] = favorites;
 			workingFavorites.splice(favoriteIndex, 1);
 			setFavorites(workingFavorites);
-			console.log('Favorites=', favorites);
 		}
-		console.log("handleClick");
 	}
 
 	const handlePageReverse = () => {
