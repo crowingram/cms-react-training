@@ -6,6 +6,7 @@ import AppFooter from '../components/AppFooter';
 import Favorite from '../components/Favorite';
 import Dropdowns from '../components/Dropdowns';
 import useMarvelApi from '../hooks/useMarvelApi';
+import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
 import styles from '../styles/Home.module.css';
 import Publication from '../types/Publication';
 
@@ -32,7 +33,9 @@ export default function Home() {
 	}
 	let comics: any = useMarvelApi('comics', query, page, character, creator, favorites);
 	let comicSubset: object[] = comics.data?.results;
-	let totalPages = Math.ceil(comics.data?.total / comicsPerPage);
+	let totalComics = comics.data?.total;
+	let totalPages = Math.ceil(totalComics / comicsPerPage);
+	let lastPageTotal = totalComics - comicsPerPage * totalPages;
 	
 	const handleCreatorSelect = (creator: string) => {
 		const crtr = parseInt(creator);
@@ -59,15 +62,21 @@ export default function Home() {
 	const handleClick = ( id: number ) => {
 		const favId = (element: number) => element === id;
 		let favoriteIndex = favorites.findIndex(favId);
-		let workingFavorites: number[] = favorites;
+		let workingFavorites: number[] = [favorites];
 		
 		if ( favoriteIndex === -1 ) {
-			workingFavorites.push(id);
+			setFavorites(prev => {
+				const newArray = [...prev, id];
+				return newArray;
+			});
 		} else {
-			workingFavorites.splice(favoriteIndex, 1);
+			setFavorites(prev => {
+				const newArray = [...prev];
+				newArray.splice(favoriteIndex, 1);
+				return newArray;
+			});
 		}
 		
-		setFavorites(workingFavorites);
 	}
 
 	const handlePageReverse = () => {
@@ -111,11 +120,18 @@ export default function Home() {
 								})}
 						</div>
 
-						{!!totalPages && 
+						{!!totalPages && page < totalPages-1 && // Pagination for pages 1 - end-1
 							<div className={styles.pagination}>
-								<span onClick={handlePageReverse}>Back</span> 
-								&mdash; Page {page + 1} of {totalPages} &mdash;
-								<span onClick={handlePageForward}>Next</span>
+								{page!==0 && <span onClick={handlePageReverse}><IoIosArrowDropleftCircle />&ensp;</span>} 
+								{(page*comicsPerPage)+1}-{(page*comicsPerPage)+15} of {totalComics} 
+								{totalPages>1 && <span onClick={handlePageForward}>&ensp;<IoIosArrowDroprightCircle /></span>}
+							</div>
+						}
+
+						{!!totalPages && page === totalPages-1 && // Pagination for last page
+							<div className={styles.pagination}>
+								<span onClick={handlePageReverse}><IoIosArrowDropleftCircle />&ensp;</span> 
+								{(page*comicsPerPage)+1}-{((page+1)*comicsPerPage)+lastPageTotal} of {totalComics}
 							</div>
 						}
 					</div>

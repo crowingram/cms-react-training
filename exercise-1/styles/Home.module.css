@@ -45,3 +45,13 @@
 	padding: 1rem 3rem;
 }
 
+.pagination {
+	font-size: 12px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.pagination span {
+	font-size: 20px;
+	vertical-align: middle;
+}
