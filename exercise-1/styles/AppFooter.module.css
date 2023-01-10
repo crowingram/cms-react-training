@@ -1,6 +1,10 @@
 .footer {
 	text-align: center;
 	font-size: 12px;
+	background-color: var(--black);
 	color: gray;
+	margin-bottom: 0;
+	padding: 2rem;
+
 }
 
