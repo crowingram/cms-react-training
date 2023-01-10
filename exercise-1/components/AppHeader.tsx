@@ -10,7 +10,7 @@ const AppHeader = ({favorites}: {favorites: number[]}) => {
 		<header className={styles.title}>
 			<div className={styles.titleContainer}>
 				<div className={styles.navBar}>
-					<Image src="/assets/logo.svg" width={150} height={231} alt="Comic Closet" />
+					<Image src="/assets/logo.svg" width={80} height={123} alt="Comic Closet" />
 					<div className={styles.navigation}>
 						<div><Link href="/">Home</Link></div>
 						<div><Link href="/">Shop</Link></div>
@@ -21,7 +21,6 @@ const AppHeader = ({favorites}: {favorites: number[]}) => {
 					</div>
 				</div>
 				<h1>Comic Closet</h1>
-				<Image src="/assets/halftone.png" width={1000} height={150} alt="" />
 			</div>
 		</header>
 	</>

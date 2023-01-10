@@ -9,6 +9,7 @@
 }
 
 .titleContainer {
+	height: 510px;
 	background-image: url(/assets/halftone.png);
 	background-repeat: repeat-x;
 	background-position-y: bottom;
@@ -19,7 +20,7 @@
 .navBar {
 	display: flex;
 	justify-content: space-between;
-	padding: 10px 20px;
+	padding: 10px 60px;
 	background-image: linear-gradient(180deg, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
@@ -29,6 +30,7 @@
 	color: var(--white);
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	width: 300px;
 }
 
